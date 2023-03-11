@@ -22,8 +22,6 @@ class help_cog(commands.Cog):
                 self.text_channel_text.append(channel)
         
 
-  
-
     @commands.Cog.listener()
     async def on_ready(self):
         for guild in self.bot.guilds:
