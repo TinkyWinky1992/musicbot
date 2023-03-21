@@ -10,6 +10,7 @@ class help_cog(commands.Cog):
         General commands: 
         !play - To play the music
         !stop - To disconnecting the bot from the channel
+        !skip - To Skipping the music from the queue
         
         ```
         """
