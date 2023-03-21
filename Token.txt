@@ -1,4 +1,4 @@
-TOKEN OF THE BOT : MTA4MTUzMDM2NzE2NjY1NjYyMg.GAhC4m.YgLdW6QlO3f35uPv6_OrSdCv9shmW27Sjf7jrc
+
 THE LINK OF THE BOT : https://discord.com/api/oauth2/authorize?client_id=1081530367166656622&permissions=8&scope=bot
 
 

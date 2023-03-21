@@ -26,18 +26,16 @@ ydl_opts = {
 class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.voice = None
+        self.voice =None
         self.queue =[]
 
 
     @commands.command()
     async def join(self, ctx, *, channel: discord.VoiceChannel = None):
-
         if not channel or ctx.auhtor.voice.channel != channel:
             if not ctx.author.voice:
                 await ctx.send("You are not connected to a voice channel.")
                 return
-            #get channel
             channel = ctx.author.voice.channel
 
         if self.voice and self.voice.is_connected():
@@ -53,8 +51,7 @@ class Music(commands.Cog):
     async def play(self,ctx,song_name):
         self.queue.append(song_name)
         await ctx.send(f"Added '{song_name}' to the Queue")
-        
-        #checking  the len of the array
+
         if len(self.queue) == 1:
             await self.play_next(ctx)
     
@@ -73,7 +70,7 @@ class Music(commands.Cog):
             channel = ctx.author.voice.channel
             await channel.connect()
         else:
-            # If the bot is already in a voice c    hannel, move it to the channel of the person who issued the command
+            # If the bot is already in a voice channel, move it to the channel of the person who issued the command
             await ctx.voice_client.move_to(ctx.author.voice.channel)
 
         async with ctx.typing():
@@ -81,7 +78,7 @@ class Music(commands.Cog):
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 results = ydl.extract_info(f"ytsearch:{song_name}", download=False)
                 await ctx.send(f"Playing '{song_name}'")
-                if not results or not results.get('entries'):
+                if not results:
                     await ctx.send("No results found.")
                     return
 
@@ -114,36 +111,8 @@ class Music(commands.Cog):
 
 
 
-
-    @commands.command(name="skip")
-    async def skip(self,ctx, *, channel: discord.VoiceChannel = None):
-
-        if not channel or ctx.auhtor.voice.channel != channel:
-
-            if len(self.queue) == 1:
-                await ctx.send("You have on you List only one song. use command stop to stop the music and disconnect")
-                return
-            if not ctx.author.voice:
-                await ctx.send("You are not connected to a voice channel.")
-                return
-            
-        if ctx.voice_client.is_playing():
-            await ctx.voice_client.stop()
-
-        song_name=self.queue.pop(0)
-        # Indent the for loop to execute it regardless of the if statement above
-        for file in os.listdir("C:/Users/USER/Project studioCode"):
-            if file.startswith(song_name):
-                filename=file
-                os.remove(filename)
-
-        await ctx.send("Skipping...")
-        await self.play_next(ctx)
-
-
     @commands.command(name="stop")
     async def stop(self, ctx):
-
         """Stops and disconnects the bot from voice"""
         if ctx.voice_client and ctx.voice_client.is_connected():
             await ctx.voice_client.disconnect()
@@ -159,9 +128,6 @@ class Music(commands.Cog):
             if file.endswith(".m4a"):
                 filename=file
                 os.remove(filename)
-    
-
-
 
 
 

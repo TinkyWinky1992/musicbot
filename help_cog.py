@@ -15,20 +15,13 @@ class help_cog(commands.Cog):
         """
         self.text_channel_text = []
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        for guild in self.bot.guilds:
-            for channel in guild.text_channels:
-                self.text_channel_text.append(channel)
-        
 
     @commands.Cog.listener()
     async def on_ready(self):
         for guild in self.bot.guilds:
             for channel in guild.text_channels:
                 self.text_channel_text.append(channel)
-        
-       
+
 
     @commands.Cog.listener()
     async def on_message(self,message):
